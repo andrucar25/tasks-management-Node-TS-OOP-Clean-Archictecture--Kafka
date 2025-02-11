@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IError } from '../error.interface';
+import { IError } from './error.interface';
 import { Parameters } from './parameters';
 
 export class HandlerErrors {

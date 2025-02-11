@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { HandlerErrors } from '../core/helpers/errors';
-// import MedicRouter from './modules/medic/presentation/medic.routes';
+import UserRouter from '../presentation/user.routes';
 // import { AuthenticationMiddleware } from './core/presentation/middlewares/authentication';
 
 class App {
@@ -31,7 +31,7 @@ class App {
   }
 
   mountRoutes(): void {
-    // this.app.use('/medic', MedicRouter);
+    this.app.use('/user', UserRouter);
   }
 
   mountHandlerErrors(): void {

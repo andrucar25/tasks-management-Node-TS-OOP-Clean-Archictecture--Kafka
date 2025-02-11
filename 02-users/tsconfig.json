@@ -11,5 +11,7 @@
     "outDir": "./cache", //para que los archivos traspilados vayan a esa carpeta destino
     "emitDecoratorMetadata": true,  //para utilizar decoradores
     "experimentalDecorators": true  //para utilizar decoradores
-  }
+  },
+  "exclude": ["node_modules", "cache", "dist"],
+  "include": ["src/**/*"] 
 }

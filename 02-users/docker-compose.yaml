@@ -1,0 +1,23 @@
+# version: "3.8"
+
+services:
+  postgresql-user-server:
+    image: postgres:15.3
+    container_name: postgresql-user-server
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: user_db
+    volumes:
+      - vol-task-ms-postgresql-server:/var/lib/postgresql/data
+    networks:
+      - net-task-ms
+
+volumes:
+  vol-task-ms-postgresql-server:
+
+networks:
+  net-task-ms:
+    driver: bridge
