@@ -27,14 +27,18 @@ import { UserRepository } from "../../domain/repositories/user.repository";
 import { UserDatabaseException } from "../../infrastructure/exceptions/user-database.exception";
 import { BCrypt } from "../../libraries/bcrypt";
 
-export class CreateUserUseCase {
+export class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(user: User): Promise<Result<User, UserDatabaseException>> {
+  async save(user: User): Promise<Result<User, UserDatabaseException>> {
     const hashedPassword = await BCrypt.hash(user.getPassword());
     user.setPassword(hashedPassword);
     
     return this.userRepository.save(user);
+  }
+
+  async getByEmail(email: string) {
+    return this.userRepository.getByEmail(email);
   }
 }
 
