@@ -1,0 +1,51 @@
+# version: "3.8"
+
+services:
+  postgresql-user-server:
+    image: postgres:15.3
+    container_name: postgresql-user-server
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: db_user
+    volumes:
+      - vol-task-ms-postgresql-server:/var/lib/postgresql/data
+    networks:
+      - net-task-ms
+
+  user:
+    build:
+      context: ./
+      dockerfile: 02-users/Dockerfile
+      args:
+        - BASE_DIR=02-users
+    container_name: user
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=postgres-server
+      - DB_PORT=5432
+      - DB_ENTITIES=src/**/infrastructure/**/*.entity.ts
+      - DB_USERNAME=admin
+      - DB_PASSWORD=12345
+      - DB_NAME=user_db
+      - DB_SYNCHRONIZE=true
+      - DB_LOGGING=true
+      - DB_POOL_SIZE=10
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgresql-user-server
+    networks:
+      - net-task-ms
+
+
+volumes:
+  vol-task-ms-postgresql-server:
+
+networks:
+  net-task-ms:
+    driver: bridge
