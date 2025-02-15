@@ -23,7 +23,14 @@ export class AuthUseCase {
       return err(error);
     }
 
-    const user = userResult.value;
+    const user = userResult.value?.[0];
+
+    if (!user) {
+      const error: IError = new Error("User not found");
+      error.status = 404;
+      return err(error);
+    }
+    
     const isValidPassword = await AuthService.validatePassword(auth.properties().password, user.password)
 
     if (!isValidPassword) {

@@ -1,5 +1,3 @@
-# version: "3.8"
-
 services:
   postgresql-user-server:
     image: postgres:15.3
@@ -9,12 +7,53 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: db_user
+      POSTGRES_DB: user_db
     volumes:
       - vol-task-ms-postgresql-server:/var/lib/postgresql/data
     networks:
       - net-task-ms
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d user_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
+  gateway:
+    build:
+      context: ./
+      dockerfile: 00-gateway/Dockerfile #va a buscar el archivo Dockerfile en la carpeta 00-gateway
+      args:
+        - BASE_DIR=00-gateway
+    container_name: gateway
+    restart: always
+    environment:
+      - APPLICATION_PORT=3000
+      - ENVIRONMENT=development
+      - SERVICE_AUTH_LOGIN=http://auth:3001/user/login
+      - SERVICE_AUTH_VALIDATE_TOKEN=http://auth:3001/user/validate-token
+      - SERVICE_USER_SAVE=http://user:3002/user
+    ports:
+      - "3000:3000"
+    networks:
+      - net-task-ms
+
+  auth:
+    build:
+      context: ./
+      dockerfile: 01-auth/Dockerfile
+      args:
+        - BASE_DIR=01-auth
+    container_name: auth
+    restart: always
+    environment:
+      - APPLICATION_PORT=3001
+      - NODE_ENV=development
+      - SERVICE_USER_BY_EMAIL=http://user:3002/user/user-by-email
+      - TOKEN_SECRET=c270f3c2-ad37-4148-a7cb-12a21f886cdb
+    ports:
+      - "3001:3001"
+    networks:
+      - net-task-ms
   user:
     build:
       context: ./
@@ -25,10 +64,9 @@ services:
     restart: always
     environment:
       - NODE_ENV=development
-      - PORT=3000
-      - DB_HOST=postgres-server
+      - PORT=3002
+      - DB_HOST=postgresql-user-server
       - DB_PORT=5432
-      - DB_ENTITIES=src/**/infrastructure/**/*.entity.ts
       - DB_USERNAME=admin
       - DB_PASSWORD=12345
       - DB_NAME=user_db
@@ -38,7 +76,8 @@ services:
     ports:
       - "3002:3002"
     depends_on:
-      - postgresql-user-server
+      postgresql-user-server:
+        condition: service_healthy
     networks:
       - net-task-ms
 

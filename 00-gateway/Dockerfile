@@ -1,18 +1,18 @@
-FROM node:alpine3.18 as BUILDER
+FROM node:20-alpine as BUILDER
 
 ARG BASE_DIR
 
 WORKDIR /build
 
-COPY ${BASE_DIR}/package.json .
+COPY ${BASE_DIR}/package.json ${BASE_DIR}/package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY ${BASE_DIR}/. .
 
 RUN npm run build
 
-FROM node:alpine3.18
+FROM node:20-alpine
 
 WORKDIR /app
 

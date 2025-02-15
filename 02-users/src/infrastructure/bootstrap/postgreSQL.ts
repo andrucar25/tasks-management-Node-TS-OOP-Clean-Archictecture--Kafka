@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 
 import { Bootstrap, BootstrapReturn } from "./bootstrap";
 import { Parameters } from "../../core/helpers/parameters";
+import { UserEntity } from "../db-persistence/user.entity";
 
 export default class PostgreSQLBootstrap implements Bootstrap {
   private static appDataSource: DataSource;
@@ -12,6 +13,7 @@ export default class PostgreSQLBootstrap implements Bootstrap {
     PostgreSQLBootstrap.appDataSource = new DataSource({
       type: "postgres",
       ...mysqlConfig,
+      entities: [UserEntity]
     });
     return PostgreSQLBootstrap.appDataSource.initialize();
   }

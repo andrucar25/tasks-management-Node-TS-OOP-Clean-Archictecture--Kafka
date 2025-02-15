@@ -8,7 +8,6 @@ export interface IPostgreSQLConfig {
   username: string;
   password: string;
   database: string;
-  entities: string[];
   synchronize: boolean;
   logging: boolean;
   poolSize: number;
@@ -28,7 +27,6 @@ export class Parameters {
     return {
       host: envConfig.dbHost,
       port: envConfig.dbPort,
-      entities: [envConfig.dbEntities],
       username: envConfig.dbUsername,
       password: envConfig.dbPassword,
       database: envConfig.dbName,

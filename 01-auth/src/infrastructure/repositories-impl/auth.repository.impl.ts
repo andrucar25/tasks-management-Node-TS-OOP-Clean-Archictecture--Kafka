@@ -11,7 +11,7 @@ export class AuthRepositoryImpl implements AuthRepository {
       const response = await axios.post(Parameters.SERVICE_USER_BY_EMAIL, {
         email,
       }); 
-      return ok(response.data[0]);
+      return ok(response.data);
     } catch (error) {
       return err(new AuthDatabaseException(error.message));
     }

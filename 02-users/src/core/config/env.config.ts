@@ -7,7 +7,6 @@ export class EnvConfig {
   public readonly port: number;
   public readonly dbHost: string;
   public readonly dbPort: number;
-  public readonly dbEntities: string;
   public readonly dbUsername: string;
   public readonly dbPassword: string;
   public readonly dbName: string;
@@ -21,7 +20,6 @@ export class EnvConfig {
       PORT: port = '3002',
       DB_HOST: dbHost = 'localhost',
       DB_PORT: dbPort = '5432',
-      DB_ENTITIES: dbEntities = 'src/**/infrastructure/**/*.entity.ts',
       DB_USERNAME: dbUsername = 'admin',
       DB_PASSWORD: dbPassword = '12345',
       DB_NAME: dbName = 'user_db',
@@ -34,7 +32,6 @@ export class EnvConfig {
     this.port = +port; // Convert to number
     this.dbHost = dbHost;
     this.dbPort = +dbPort;
-    this.dbEntities = dbEntities;
     this.dbUsername = dbUsername;
     this.dbPassword = dbPassword;
     this.dbName = dbName;
@@ -57,7 +54,6 @@ export class EnvConfig {
       port: this.port,
       dbHost: this.dbHost,
       dbPort: this.dbPort,
-      dbEntities: this.dbEntities,
       dbUsername: this.dbUsername,
       dbPassword: this.dbPassword,
       dbName: this.dbName,
