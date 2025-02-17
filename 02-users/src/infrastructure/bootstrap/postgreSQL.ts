@@ -8,11 +8,11 @@ export default class PostgreSQLBootstrap implements Bootstrap {
   private static appDataSource: DataSource;
 
   initialize(): Promise<BootstrapReturn> {
-    const mysqlConfig = Parameters.POSTGRESQL_CONFIG;
+    const postgresqlConfig = Parameters.POSTGRESQL_CONFIG;
 
     PostgreSQLBootstrap.appDataSource = new DataSource({
       type: "postgres",
-      ...mysqlConfig,
+      ...postgresqlConfig,
       entities: [UserEntity]
     });
     return PostgreSQLBootstrap.appDataSource.initialize();

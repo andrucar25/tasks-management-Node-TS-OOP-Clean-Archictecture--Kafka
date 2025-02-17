@@ -39,9 +39,9 @@ export class AuthUseCase {
       return err(error);
     }
 
-    const { username, email } = user;
+    const { username, email, id } = user;
     const tokens = {
-      accessToken: AuthService.generateAccessToken(username, email)
+      accessToken: AuthService.generateAccessToken(username, email, id)
     };
 
     return ok(tokens);

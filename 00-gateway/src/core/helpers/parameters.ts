@@ -23,4 +23,8 @@ export class Parameters {
     return envConfig.serviceUserSave;
   }
 
+  static get SERVICE_TASK_SAVE() {
+    return envConfig.serviceTaskSave;
+  }
+
 }

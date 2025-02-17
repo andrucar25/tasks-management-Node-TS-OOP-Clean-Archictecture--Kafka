@@ -54,4 +54,22 @@ export class GatewayController {
     res.json(result.value);
   }
 
+  async saveTask(req: Request, res: Response, next: NextFunction) {
+    const data = req.body;
+    const {id} = req.user;
+    const taskData = {...data, creator: id};
+
+    const result = await this.gatewayUseCase.endpointRequest(
+      Parameters.SERVICE_TASK_SAVE,
+      "POST",
+      taskData
+    );
+
+    if (result.isErr()) {
+      return next(result.error);
+    }
+
+    res.json(result.value);
+  }
+
 }

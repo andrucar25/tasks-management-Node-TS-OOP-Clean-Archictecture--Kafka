@@ -2,18 +2,17 @@ import { DataSource } from "typeorm";
 
 import { Bootstrap, BootstrapReturn } from "./bootstrap";
 import { Parameters } from "../../core/helpers/parameters";
-// import { UserEntity } from "../db-persistence/user.entity";
-
+import { TaskEntity } from "../db-persistance/task.entity";
 export default class PostgreSQLBootstrap implements Bootstrap {
   private static appDataSource: DataSource;
 
   initialize(): Promise<BootstrapReturn> {
-    const mysqlConfig = Parameters.POSTGRESQL_CONFIG;
+    const postgresqlConfig = Parameters.POSTGRESQL_CONFIG;
 
     PostgreSQLBootstrap.appDataSource = new DataSource({
       type: "postgres",
-      ...mysqlConfig,
-      // entities: [UserEntity]
+      ...postgresqlConfig,
+      entities: [TaskEntity]
     });
     return PostgreSQLBootstrap.appDataSource.initialize();
   }

@@ -19,10 +19,10 @@ export class EnvConfig {
       NODE_ENV: environment = 'development',
       PORT: port = '3003',
       DB_HOST: dbHost = 'localhost',
-      DB_PORT: dbPort = '5432',
-      DB_USERNAME: dbUsername = 'admin',
+      DB_PORT: dbPort = '5433',
+      DB_USERNAME: dbUsername = 'admin_task',
       DB_PASSWORD: dbPassword = '12345',
-      DB_NAME: dbName = 'user_db',
+      DB_NAME: dbName = 'task_db',
       DB_SYNCHRONIZE: dbSynchronize = 'true',
       DB_LOGGING: dbLogging = 'true',
       DB_POOL_SIZE: dbPoolSize = '10'

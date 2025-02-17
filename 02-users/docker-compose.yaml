@@ -11,12 +11,12 @@ services:
       POSTGRES_PASSWORD: 12345
       POSTGRES_DB: user_db
     volumes:
-      - vol-task-ms-postgresql-server:/var/lib/postgresql/data
+      - vol-user-ms-postgresql-server:/var/lib/postgresql/data
     networks:
       - net-task-ms
 
 volumes:
-  vol-task-ms-postgresql-server:
+  vol-user-ms-postgresql-server:
 
 networks:
   net-task-ms:

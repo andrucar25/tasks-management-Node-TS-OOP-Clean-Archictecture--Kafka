@@ -9,8 +9,8 @@ export class AuthService {
     return await bcrypt.compare(password, passwordHash);
   }
 
-  static generateAccessToken(username: string,email: string): string {
-    return jwt.sign({ username, email }, Parameters.JWT_SECRET, {
+  static generateAccessToken(username: string, email: string, id: string): string {
+    return jwt.sign({ username, email, id }, Parameters.JWT_SECRET, {
       expiresIn: "7d",
       // expiresIn: 30, to expire in 30 seconds
     });

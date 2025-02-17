@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-// import { Authentication } from "./middlewares/authentication";
 import { GatewayUseCase } from '../application/use-cases/gateway.usecase';
 import { GatewayRepositoryImpl } from '../infrastructure/repositories-impl/gateway.repository.impl';
 import { GatewayRepository } from '../domain/repositories/gateway.repository';
 import { GatewayController } from './gateway.controller';
+import { Authentication } from "./middlewares/authentication";
 
 const repository: GatewayRepository = new GatewayRepositoryImpl();
 const application = new GatewayUseCase(repository);
@@ -25,11 +25,11 @@ class GatewayRoute {
       "/auth/validate-token",
       controller.validateToken.bind(controller)
     );
-    // this.router.get(
-    //   "/usuarios",
-    //   Authentication.canActivate(application),
-    //   controller.getUsers.bind(controller)
-    // );
+    this.router.post(
+      "/task",
+      Authentication.canActivate(application),
+      controller.saveTask.bind(controller)
+    );
     return this.router;
   }
 

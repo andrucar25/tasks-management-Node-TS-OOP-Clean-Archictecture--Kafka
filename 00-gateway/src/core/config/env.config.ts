@@ -8,6 +8,7 @@ export class EnvConfig {
   public readonly serviceAuthLogin: string;
   public readonly serviceAuthValidateToken: string;
   public readonly serviceUserSave: string;
+  public readonly serviceTaskSave: string;
 
   private constructor() {
     const {
@@ -15,7 +16,8 @@ export class EnvConfig {
       ENVIRONMENT: environment = 'development',
       SERVICE_AUTH_LOGIN: serviceAuthLogin = 'http://localhost:3001/user/login',
       SERVICE_AUTH_VALIDATE_TOKEN: serviceAuthValidateToken = 'http://localhost:3001/user/validate-token',
-      SERVICE_USER_SAVE: serviceUserSave = 'http://localhost:3002/user'
+      SERVICE_USER_SAVE: serviceUserSave = 'http://localhost:3002/user',
+      SERVICE_TASK_SAVE: serviceTaskSave = 'http://localhost:3003/task'
     } = process.env;
 
     this.port = +port;
@@ -23,7 +25,7 @@ export class EnvConfig {
     this.serviceAuthLogin = serviceAuthLogin;
     this.serviceAuthValidateToken = serviceAuthValidateToken;
     this.serviceUserSave = serviceUserSave;
-    this.serviceUserSave = serviceUserSave;
+    this.serviceTaskSave = serviceTaskSave;
 
   }
 
@@ -41,7 +43,8 @@ export class EnvConfig {
       environment: this.environment,
       serviceAuthLogin: this.serviceAuthLogin,
       serviceAuthValidateToken: this.serviceAuthValidateToken,
-      serviceUserSave: this.serviceUserSave
+      serviceUserSave: this.serviceUserSave,
+      serviceTaskSave: this.serviceTaskSave
  
     };
   }

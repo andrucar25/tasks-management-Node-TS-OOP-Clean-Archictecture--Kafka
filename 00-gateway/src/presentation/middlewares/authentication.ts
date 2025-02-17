@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { GatewayUseCase } from '../../application/use-cases/gateway.usecase';
 import { Parameters } from '../../core/helpers/parameters';
 import { IError } from '../../core/helpers/error.interface';
+import { User } from '../../infrastructure/types/express.types';
 
 export class Authentication {
   static canActivate(gatewayUseCas: GatewayUseCase) {
@@ -30,6 +31,9 @@ export class Authentication {
         if (result.isErr()) {
           return next(result.error);
         }
+
+        const user = result.value;
+        req.user = user as User;
 
         return next();
       }

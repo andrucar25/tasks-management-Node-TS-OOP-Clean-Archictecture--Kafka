@@ -1,15 +1,15 @@
 # version: "3.8"
 
 services:
-  postgresql-user-server:
+  postgresql-task-server:
     image: postgres:15.3
     container_name: postgresql-task-server
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
-      POSTGRES_USER: admin
+      POSTGRES_USER: admin_task
       POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: user_db
+      POSTGRES_DB: task_db
     volumes:
       - vol-task-ms-postgresql-server:/var/lib/postgresql/data
     networks:
