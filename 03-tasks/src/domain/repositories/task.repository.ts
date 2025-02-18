@@ -6,5 +6,6 @@ export type TaskResult = Result<Task, Error>;
 
 export interface TaskRepository {
   save(task: Task): Promise<TaskResult>;
-  updateState(updateState: UpdateState): Promise<TaskResult>
+  updateState(values: UpdateState): Promise<TaskResult>
+  taskById(id: string): Promise<TaskResult>
 }

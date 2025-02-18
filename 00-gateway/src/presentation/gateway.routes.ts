@@ -30,6 +30,11 @@ class GatewayRoute {
       Authentication.canActivate(application),
       controller.saveTask.bind(controller)
     );
+    this.router.patch(
+      "/task/update-state",
+      Authentication.canActivate(application),
+      controller.updateTaskState.bind(controller)
+    );
     return this.router;
   }
 

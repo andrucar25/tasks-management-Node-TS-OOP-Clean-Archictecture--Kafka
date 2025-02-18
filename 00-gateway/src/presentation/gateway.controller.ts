@@ -72,4 +72,19 @@ export class GatewayController {
     res.json(result.value);
   }
 
+  async updateTaskState(req: Request, res: Response, next: NextFunction) {
+    const data = req.body;
+    const result = await this.gatewayUseCase.endpointRequest(
+      Parameters.SERVICE_TASK_STATE_UPDATE,
+      "PATCH",
+      data
+    );
+
+    if (result.isErr()) {
+      return next(result.error);
+    }
+
+    res.json(result.value);
+  }
+
 }

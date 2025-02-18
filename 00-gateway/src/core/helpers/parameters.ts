@@ -27,4 +27,8 @@ export class Parameters {
     return envConfig.serviceTaskSave;
   }
 
+  static get SERVICE_TASK_STATE_UPDATE() {
+    return envConfig.serviceTaskStateUpdate;
+  }
+
 }

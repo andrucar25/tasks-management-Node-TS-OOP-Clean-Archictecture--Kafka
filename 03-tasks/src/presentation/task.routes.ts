@@ -6,6 +6,7 @@ import { TaskUseCase } from '../application/use-cases/task.usecase';
 import { TaskRepository } from '../domain/repositories/task.repository';
 import { TaskRepositoryImpl } from '../infrastructure/repositories-impl/task.repository.impl';
 import { TaskInsertDto } from '../infrastructure/dtos/task-insert.dto';
+import { TaskUpdateStateDto } from '../infrastructure/dtos/task-update-state.dto';
 
 const repository: TaskRepository = new TaskRepositoryImpl();
 const userUseCase = new TaskUseCase(repository);
@@ -25,7 +26,12 @@ class TaskRoute {
       Validator.execute({ body: new TaskInsertDto() }),
       controller.insert.bind(controller)
     );
-
+    this.router.patch(
+      "/update-state",
+      Validator.execute({ body: new TaskUpdateStateDto() }),
+      controller.updateState.bind(controller)
+    );
+    
     return this.router;
   }
 

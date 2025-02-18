@@ -20,4 +20,21 @@ export class TaskController {
     res.status(201).json(taskResult.value);
   }
 
+  async updateState(req: Request, res: Response, next: NextFunction) {
+    const { taskId, state} = req.body;
+    const taskResult = await this.taskUseCase.taskById(taskId);
+    
+    if (taskResult.isErr()) {
+      return next(taskResult.error);
+    }
+    
+    const taskUpdateResult = await this.taskUseCase.updateState({taskId, state});
+
+    if (taskUpdateResult.isErr()) {
+      return next(taskUpdateResult.error); 
+    }
+    res.status(201).json(taskUpdateResult.value);
+
+  }
+
 }
