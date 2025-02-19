@@ -13,12 +13,15 @@ export class TaskUseCase {
   }
 
   async updateState(values: UpdateState): Promise<Result<Task, TaskDatabaseException>> {
-    const updateStateResult = this.taskRepository.updateState(values);
+    const updateStateResult = await this.taskRepository.updateState(values);
     
-    if((await updateStateResult).isOk()){
+    if((updateStateResult).isOk()){
       //publish event in kafka
       const {taskId} = values;
-      await ProducerService.publish(values, taskId, "Task");
+      const assignedTo = 'task.assignedTo';
+      const kafkaMessage = {...values, assignedTo};
+
+      await ProducerService.publish(kafkaMessage, taskId, "Task");
     }
 
     return updateStateResult;

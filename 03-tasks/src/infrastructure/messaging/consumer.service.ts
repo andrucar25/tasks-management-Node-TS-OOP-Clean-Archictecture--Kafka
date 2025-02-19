@@ -18,9 +18,6 @@ export class ConsumerService {
       eachMessage: async ({ topic, partition, message }) => {
         const repository = new TaskRepositoryImpl();
         const application = new TaskUseCase(repository);
-
-        // const { appointmentId, status } = JSON.parse(message.value?.toString());
-        // await application.update(appointmentId, status);
       },
     });
   }

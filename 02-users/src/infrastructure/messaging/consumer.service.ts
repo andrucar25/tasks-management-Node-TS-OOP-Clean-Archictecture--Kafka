@@ -1,12 +1,4 @@
 import { Consumer } from "kafkajs";
-
-// import envs from "../../config/environment-vars";
-// import { AppointmentApplication } from "../../modules/appointment/application/appointment.application";
-// import {
-//   Appointment,
-//   AppointmentProps,
-// } from "../../modules/appointment/domain/appointment";
-// import { AppointmentInfrastructure } from "../../modules/appointment/infrastructure/appointment.infrastructure";
 import { MessageBrokerKafka } from "./kafka.service";
 import { Parameters } from '../../core/helpers/parameters';
 
@@ -24,21 +16,7 @@ export class ConsumerService {
       eachMessage: async ({ topic, partition, message }) => {
         const value = message.value?.toString();
         console.log(`📩 Mensaje recibido en ${topic}:`, value);
-        // const repository = new AppointmentInfrastructure();
-        // const application = new AppointmentApplication(repository);
 
-        // const msg = JSON.parse(message.value?.toString());
-        // const props: AppointmentProps = {
-        //   appointmentId: msg.appointmentId,
-        //   countryIso: msg.countryIso,
-        //   patientId: msg.patientId,
-        //   medicId: msg.medicId,
-        //   scheduleId: msg.scheduleId,
-        //   centerId: msg.centerId,
-        //   status: "COMPLETED",
-        // };
-        // const appointment = new Appointment(props);
-        // await application.save(appointment);
       },
     });
   }

@@ -33,6 +33,7 @@ export class TaskController {
     if (taskUpdateResult.isErr()) {
       return next(taskUpdateResult.error); 
     }
+    console.log("🚀 ~ TaskController ~ taskUpdateResult:", taskUpdateResult.value)
     res.status(201).json(taskUpdateResult.value);
 
   }
