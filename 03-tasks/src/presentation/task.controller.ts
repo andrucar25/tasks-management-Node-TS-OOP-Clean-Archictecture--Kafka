@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+// import 'reflect-metadata';
 import { NextFunction, Request, Response } from "express";
 
 import { TaskFactory } from '../domain/entities/task.factory';

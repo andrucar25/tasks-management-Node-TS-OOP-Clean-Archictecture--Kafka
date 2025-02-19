@@ -13,6 +13,15 @@ export interface IPostgreSQLConfig {
   poolSize: number;
 }
 
+export interface IKafkaConfig {
+  kafkaBroker: string;
+  kafkaTopicUser: string;
+  kafkaTopicTask: string;
+  kafkaGroupId: string;
+  clientId: string;
+}
+
+
 export class Parameters {
   static get PORT() {
     return envConfig.port;
@@ -32,18 +41,17 @@ export class Parameters {
       database: envConfig.dbName,
       synchronize: envConfig.dbSynchronize,
       logging: envConfig.dbLogging,
-      poolSize: envConfig.dbPoolSize,
+      poolSize: envConfig.dbPoolSize
     };
   }
 
-  // static get TOKEN_EXPIRES_TIME() {
-  //   return Number(process.env.TIME_EXPIRES_TIME) || 1;
-  // }
-
-  // static get TOKEN_SECRET_KEY() {
-  //   return (
-  //     process.env.TOKEN_SECRET_KEY ||
-  //     'Y1WH>2!OaBqiTXF1+mWfezXp.9hINR_gwDS!:<4Nf~!h'
-  //   );
-  // }
+  static get KAFKA_CONFIG(): IKafkaConfig {
+    return {
+      kafkaBroker: envConfig.kafkaBroker,
+      kafkaTopicUser: envConfig.kafkaTopicUser,
+      kafkaTopicTask: envConfig.kafkaTopicTask,
+      kafkaGroupId: envConfig.kafkaGroupId,
+      clientId: envConfig.clientId
+    }
+  }
 }

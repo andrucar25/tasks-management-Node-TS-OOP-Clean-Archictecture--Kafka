@@ -13,6 +13,11 @@ export class EnvConfig {
   public readonly dbSynchronize: boolean;
   public readonly dbLogging: boolean;
   public readonly dbPoolSize: number;
+  public readonly kafkaBroker: string;
+  public readonly kafkaTopicUser: string;
+  public readonly kafkaTopicTask: string;
+  public readonly kafkaGroupId: string;
+  public readonly clientId: string;
 
   private constructor() {
     const {
@@ -25,7 +30,12 @@ export class EnvConfig {
       DB_NAME: dbName = 'task_db',
       DB_SYNCHRONIZE: dbSynchronize = 'true',
       DB_LOGGING: dbLogging = 'true',
-      DB_POOL_SIZE: dbPoolSize = '10'
+      DB_POOL_SIZE: dbPoolSize = '10',
+      KAFKA_BROKER: kafkaBroker = 'localhost:9092',
+      KAFKA_TOPIC_USER: kafkaTopicUser = 'user',
+      KAFKA_TOPIC_COMPLETE: kafkaTopicTask = 'task',
+      KAFKA_GROUP_ID: kafkaGroupId = 'task-service',
+      CLIENT_ID: clientId = 'task-id'
     } = process.env;
 
     this.environment = environment;
@@ -36,8 +46,13 @@ export class EnvConfig {
     this.dbPassword = dbPassword;
     this.dbName = dbName;
     this.dbSynchronize = dbSynchronize === 'true';
-    this.dbLogging = dbLogging !== 'false';;
-    this.dbPoolSize = +dbPoolSize
+    this.dbLogging = dbLogging !== 'false';
+    this.dbPoolSize = +dbPoolSize;
+    this.kafkaBroker = kafkaBroker;
+    this.kafkaTopicUser = kafkaTopicUser;
+    this.kafkaTopicTask = kafkaTopicTask;
+    this.kafkaGroupId = kafkaGroupId;
+    this.clientId = clientId;
   }
 
   //Singleton pattern to create only 1 instance of the class and just call process.env once
@@ -59,7 +74,12 @@ export class EnvConfig {
       dbName: this.dbName,
       dbSynchronize: this.dbSynchronize,
       dbLogging: this.dbLogging,
-      dbPoolSize: this.dbPoolSize
+      dbPoolSize: this.dbPoolSize,
+      kafkaBroker: this.kafkaBroker,
+      kafkaTopicUser: this.kafkaTopicUser,
+      kafkaTopicTask: this.kafkaTopicTask,
+      kafkaGroupId: this.kafkaGroupId,
+      clientId: this.clientId,
     };
   }
 }
